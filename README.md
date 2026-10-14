@@ -4,6 +4,14 @@ Unofficial WebGPU (WGSL) port of two [Paper Shaders](https://github.com/paper-de
 
 Not affiliated with or endorsed by Paper. Apache-2.0, see [NOTICE](NOTICE).
 
+## Why
+
+Paper Shaders look great, but a full-screen grain gradient is a lot of per-pixel work for WebGL, and on a laptop's integrated GPU, an older phone or a battery that's the kind of effect that makes the whole page lag. This port runs the same shaders on WebGPU and does the same job with noticeably less GPU load: in the benchmark below, 16 stacked grain gradients ran about 60% faster than the WebGL original, and GPU usage sat around 60–65% instead of 90–100%.
+
+Use it when a shader is a background or hero that should never cost you scroll smoothness. It keeps Paper's props, so swapping one in is a one-line change.
+
+It's an enhancement, not a replacement. WebGPU isn't everywhere yet and there is no WebGL fallback in here, so keep Paper's original (or a flat colour) as the fallback when `onRenderFailed` fires. If you only use a shader once, small, on fast hardware, you won't notice a difference and the original is fine.
+
 ![WebGL original next to the WebGPU port](docs/compare.png)
 
 ## Usage
