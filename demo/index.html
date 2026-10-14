@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>paper-shaders-webgpu</title>
+    <style>
+      body { margin: 0; padding: 24px; font: 13px/1.5 ui-monospace, Menlo, monospace; background: #0b0b0d; color: #ddd; }
+      a, button, select { color: inherit; font: inherit; }
+      button, select { background: #1c1c20; border: 1px solid #333; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
+      button[aria-pressed='true'] { background: #ddd; color: #111; }
+      .row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+      .panes { display: flex; flex-wrap: wrap; gap: 16px; }
+      figure { margin: 0; } figcaption { margin-bottom: 4px; opacity: .7; }
+      .warn { color: #ff9b9b; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./compare.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+paper-shaders-webgpu
+Copyright 2026 Stephan Bordellier
+
+This project is a port of the GLSL shaders in Paper Shaders
+(https://github.com/paper-design/shaders), Copyright Paper Design,
+licensed under the Apache License 2.0. It is not affiliated with or
+endorsed by Paper.
+
+Powered by Paper Shaders:
+https://shaders.paper.design

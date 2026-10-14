@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>paper-shaders-webgpu bench-all</title>
+    <style>
+      body { margin: 0; background: #0b0b0d; color: #ddd; font: 12px/1.5 ui-monospace, Menlo, monospace; }
+      iframe { border: 0; width: 980px; height: 700px; display: block; }
+      pre { margin: 8px; }
+    </style>
+  </head>
+  <body>
+    <pre id="out">starting…</pre>
+    <iframe id="f"></iframe>
+    <script type="module">
+      // Runs every config one at a time, each in a fresh iframe, so the two engines never share the GPU.
+      const sets = {
+        base: [['grain', 'ripple', [1, 4, 8, 16]], ['dither', 'simplex', [1, 4, 8]]],
+        heavy: [['grain', 'truchet', [8, 16]], ['grain', 'wave', [8, 16]], ['dither', 'warp', [16]], ['dither', 'swirl', [16]]],
+      };
+      const configs = sets[new URLSearchParams(location.search).get('set') ?? 'base'];
+      const rounds = Number(new URLSearchParams(location.search).get('rounds') ?? 2);
+      const secs = Number(new URLSearchParams(location.search).get('secs') ?? 6);
+      const f = document.getElementById('f');
+      const out = document.getElementById('out');
+      const all = [];
+      window.__all = all;
+      window.__done = false;
+      for (let round = 1; round <= rounds; round++) {
+        for (const [kind, shape, ns] of configs) for (const n of ns) for (const engine of round % 2 ? ['webgl', 'webgpu'] : ['webgpu', 'webgl']) {
+          f.src = `bench.html?engine=${engine}&kind=${kind}&shape=${shape}&n=${n}&secs=${secs}&r=${Math.random()}`;
+          const t = Date.now();
+          while (!(f.contentWindow?.__result) && Date.now() - t < (secs + 12) * 1000) await new Promise((r) => setTimeout(r, 250));
+          all.push({ round, ...(f.contentWindow?.__result ?? { engine, kind, shape, n, error: 'timeout' }) });
+          out.textContent = `${all.length} runs done\n` + all.slice(-1).map((r) => JSON.stringify(r)).join('\n');
+          f.src = 'about:blank';
+          await new Promise((r) => setTimeout(r, 800));
+        }
+      }
+      window.__done = true;
+      out.textContent = 'done ' + all.length;
+    </script>
+  </body>
+</html>

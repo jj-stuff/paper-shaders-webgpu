@@ -1,0 +1,51 @@
+{
+  "name": "paper-shaders-webgpu",
+  "version": "0.1.0",
+  "description": "Unofficial WebGPU (WGSL) port of Paper Shaders' grain-gradient and dithering, as React components.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "keywords": [
+    "webgpu",
+    "wgsl",
+    "shaders",
+    "react",
+    "paper-shaders",
+    "grain-gradient",
+    "dithering"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsup",
+    "build:demo": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "node test/test-sizing.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@paper-design/shaders-react": "0.0.77",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5",
+    "react": "^19",
+    "react-dom": "^19",
+    "tsup": "^8",
+    "typescript": "^5",
+    "vite": "^7"
+  }
+}
